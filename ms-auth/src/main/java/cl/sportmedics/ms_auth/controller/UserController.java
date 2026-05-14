@@ -18,7 +18,7 @@ public class UserController {
     public class UserController {
 
     @Autowired
-    private IUserService userService;
+    private IuserService userService;
 
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
