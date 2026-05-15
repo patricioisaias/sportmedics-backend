@@ -7,15 +7,15 @@ import lombok.Data;
 
 @Data
 public class SubscriptionRequestDTO {
-    @NotBlank(message = "El nombre del plan no puede estar vacío")
+    @NotBlank(message = "El nombre del plan es obligatorio.")
     private String name;
 
-    @NotNull(message = "El precio es obligatorio")
-    @Min(value = 0, message = "El precio no puede ser negativo")
+    @NotNull(message = "El precio es obligatorio.")
+    @Min(value = 0, message = "El precio no puede ser negativo.")
     private Double price;
 
-    @NotNull(message = "La duración es obligatoria")
-    @Min(value = 1, message = "La duración mínima es de 1 mes")
+    @NotNull(message = "La duración es obligatoria.")
+    @Min(value = 1, message = "La duración mínima es de 1 mes.")
     private Integer durationMonths;
 
     private Boolean active = true;
