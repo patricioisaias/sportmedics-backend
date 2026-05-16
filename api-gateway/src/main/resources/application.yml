@@ -1,0 +1,35 @@
+server:
+  port: 8080 # El único puerto al que le haremos peticiones en Postman
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # Ruta para ms-subscription
+        - id: ms-subscription-route
+          uri: lb://ms-subscription
+          predicates:
+            - Path=/api/subscriptions/**
+
+        # Ruta para ms-member
+        - id: ms-member-route
+          uri: lb://ms-member
+          predicates:
+            - Path=/api/members/**
+
+        # Ruta para ms-employee
+        - id: ms-employee-route
+          uri: lb://ms-employee
+          predicates:
+            - Path=/api/employees/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
