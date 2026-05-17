@@ -1,28 +1,31 @@
 package cl.sportmedics.ms_billing.dto;
 
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Data
 public class BillingRequestDTO {
-    @NotBlank(message = "El RUT es obligatorio.")
-    @Pattern(regexp = "^[0-9]+-[0-9Kk]{1}$", message = "Formato de RUT inválido (ej: 12345678-9).")
-    private String rut;
 
-    @NotBlank(message = "El nombre es obligatorio.")
-    private String firstName;
+    @NotNull(message = "El ID del miembro es obligatorio.")
+    private Long memberId;
 
-    @NotBlank(message = "El apellido es obligatorio.")
-    private String lastName;
+    @NotNull(message = "El ID de la suscripción es obligatorio.")
+    private Long subscriptionId;
 
-    @NotBlank(message = "El correo electrónico es obligatorio.")
-    @Email(message = "Debe proporcionar un correo electrónico válido.")
-    private String email;
+    @NotNull(message = "La fecha de emisión es obligatoria.")
+    private LocalDate issueDate;
 
-    private String phone;
+    @NotNull(message = "La fecha de vencimiento es obligatoria.")
+    private LocalDate dueDate;
 
-    private Boolean active = true;
+    @NotNull(message = "El monto total es obligatorio.")
+    @Positive(message = "El monto debe ser mayor a cero.")
+    private Double totalAmount;
+
+    @NotBlank(message = "El estado es obligatorio (ej: PENDING, PAID).")
+    private String status;
 }

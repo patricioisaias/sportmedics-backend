@@ -1,14 +1,17 @@
 package cl.sportmedics.ms_billing.dto;
 
 import lombok.Data;
+import java.time.LocalDate;
 
 @Data
 public class BillingResponseDTO {
+    
     private Long id;
-    private String rut;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private Boolean active;
+    private Long memberId;
+    private Long subscriptionId;
+    private LocalDate issueDate;
+    private LocalDate dueDate;
+    private Double totalAmount;
+    private String status;
+
 }
