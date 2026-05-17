@@ -1,41 +1,54 @@
 package cl.sportmedics.ms_workout.controller;
 
+import cl.sportmedics.ms_workout.dto.WorkoutDTO;
+import cl.sportmedics.ms_workout.model.Workout;
+import cl.sportmedics.ms_workout.service.IWorkoutService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.List;
 
-@ControllerAdvice
-public class GlobalExceptionHandler {
+@RestController
+@RequestMapping("/api/workouts")
+@Slf4j
+public class WorkoutController {
 
-    // Captura los errores de validación de Bean Validation (@Valid)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error -> 
-            errors.put(error.getField(), error.getDefaultMessage())
-        );
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    @Autowired
+    private IWorkoutService workoutService;
+
+    @GetMapping
+    public ResponseEntity<List<Workout>> getAll() {
+        log.info("MS-WORKOUT [Controller]: Petición GET recibida para listar todas las rutinas");
+        return ResponseEntity.ok(workoutService.findAll());
     }
 
-    // Captura errores cuando no encuentra una rutina (404)
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Map<String, String>> handleNotFound(NoSuchElementException ex) {
-        Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    @GetMapping("/{id}")
+    public ResponseEntity<Workout> getById(@PathVariable Long id) {
+        log.info("MS-WORKOUT [Controller]: Petición GET recibida para ID: {}", id);
+        return ResponseEntity.ok(workoutService.findById(id));
     }
 
-    // Captura errores de lógica de negocio (ej: nombre duplicado)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> handleBusinessErrors(IllegalArgumentException ex) {
-        Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    @PostMapping
+    public ResponseEntity<Workout> create(@Valid @RequestBody WorkoutDTO workoutDTO) {
+        log.info("MS-WORKOUT [Controller]: Petición POST recibida para crear rutina: {}", workoutDTO.getName());
+        Workout nuevaRutina = workoutService.save(workoutDTO);
+        return new ResponseEntity<>(nuevaRutina, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Workout> update(@PathVariable Long id, @Valid @RequestBody WorkoutDTO workoutDTO) {
+        log.info("MS-WORKOUT [Controller]: Petición PUT recibida para actualizar ID: {}", id);
+        return ResponseEntity.ok(workoutService.update(id, workoutDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("MS-WORKOUT [Controller]: Petición DELETE recibida para ID: {}", id);
+        workoutService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
