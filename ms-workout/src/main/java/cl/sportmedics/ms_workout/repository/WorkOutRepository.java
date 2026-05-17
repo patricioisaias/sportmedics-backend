@@ -1,6 +1,6 @@
 package cl.sportmedics.ms_workout.repository;
 
-import cl.sportmedics.workout.model.Workout;
+import cl.sportmedics.ms_workout.model.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

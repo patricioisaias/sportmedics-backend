@@ -1,9 +1,9 @@
 package cl.sportmedics.ms_workout.service;
 
-import cl.sportmedics.workout.dto.WorkoutDTO;
-import cl.sportmedics.workout.model.Workout;
-import cl.sportmedics.workout.repository.WorkoutRepository;
-import cl.sportmedics.workout.service.IWorkoutService;
+import cl.sportmedics.ms_workout.dto.WorkoutDTO;
+import cl.sportmedics.ms_workout.model.Workout;
+import cl.sportmedics.ms_workout.repository.WorkoutRepository;
+import cl.sportmedics.ms_workout.service.IWorkoutService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

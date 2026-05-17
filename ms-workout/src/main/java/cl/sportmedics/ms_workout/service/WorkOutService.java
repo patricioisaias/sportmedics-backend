@@ -1,7 +1,7 @@
 package cl.sportmedics.ms_workout.service;
 
-import cl.sportmedics.workout.model.Workout;
-import cl.sportmedics.workout.dto.WorkoutDTO;
+import cl.sportmedics.ms_workout.model.Workout;
+import cl.sportmedics.ms_workout.dto.WorkoutDTO;
 import java.util.List;
 
 public interface IWorkoutService {
