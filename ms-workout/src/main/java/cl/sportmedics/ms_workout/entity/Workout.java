@@ -1,11 +1,17 @@
-package cl.sportmedics.ms_workout.model;
+package cl.sportmedics.ms_workout.entity;
+
+
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "workout")
-@Data
+@Table(name = "workouts")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -14,18 +20,31 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
+
+    @Column(name = "teacher_id", nullable = false)
+    private Long teacherId;
+
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String objective;
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
+    @Column(name = "end_date", nullable = false)
+    private LocalDate endDate;
 
     @Column(nullable = false)
-    private Integer series;
+    private Boolean active;
 
-    @Column(nullable = false)
-    private Integer repetitions;
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<WorkoutDetail> details = new ArrayList<>();
 
-    @Column(nullable = false)
-    private String level;
+    // Método helper para mantener la sincronización bidireccional en JPA
+    public void addDetail(WorkoutDetail detail) {
+        details.add(detail);
+        detail.setWorkout(this);
+    }
 }
