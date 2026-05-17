@@ -48,4 +48,4 @@ public class WorkoutController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-}
+}1
