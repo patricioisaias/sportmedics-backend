@@ -23,22 +23,28 @@ public class WorkoutController {
 
     @PostMapping
     public ResponseEntity<WorkoutResponseDTO> create(@Valid @RequestBody WorkoutRequestDTO dto) {
-        log.info("Petición POST en /api/workouts");
-        return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
+        log.info("Petición POST recibida en /api/workouts");
+        WorkoutResponseDTO response = service.create(dto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<WorkoutResponseDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        log.info("Petición GET recibida en /api/workouts");
+        List<WorkoutResponseDTO> list = service.getAll();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<WorkoutResponseDTO> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getById(id));
+        log.info("Petición GET recibida en /api/workouts/{}", id);
+        WorkoutResponseDTO response = service.getById(id);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("Petición DELETE recibida en /api/workouts/{}", id);
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
