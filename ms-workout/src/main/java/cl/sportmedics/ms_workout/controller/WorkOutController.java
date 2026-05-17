@@ -1,8 +1,8 @@
 package cl.sportmedics.ms_workout.controller;
 
-import cl.sportmedics.workout.dto.WorkoutDTO;
-import cl.sportmedics.workout.model.Workout;
-import cl.sportmedics.workout.service.IWorkoutService;
+import cl.sportmedics.ms_workout.dto.WorkoutDTO;
+import cl.sportmedics.ms_workout.model.Workout;
+import cl.sportmedics.ms_workout.service.IWorkoutService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
