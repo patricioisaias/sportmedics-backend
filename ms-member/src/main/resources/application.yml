@@ -21,3 +21,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+
+sql:
+    init:
+      mode: always 
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    # 2. Agrega esto para que espere a que Hibernate cree la tabla ANTES de insertar los datos
+    defer-datasource-initialization: true
