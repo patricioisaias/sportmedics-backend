@@ -29,6 +29,48 @@ spring:
           predicates:
             - Path=/api/employees/**
 
+        # Ruta para ms-billing
+        - id: ms-billing-route
+          uri: lb://ms-billing
+          predicates:
+            - Path=/api/billings/**
+
+        # Ruta para ms-access
+        - id: ms-access-route
+          uri: lb://ms-access
+          predicates:
+            - Path=/api/accesses/**
+
+        # Ruta para ms-notification
+        - id: ms-notification-route
+          uri: lb://ms-notification
+          predicates:
+            - Path=/api/notifications/**
+
+        # Ruta para ms-auth
+        - id: ms-auth-route
+          uri: lb://ms-auth
+          predicates:
+            - Path=/api/auth/**
+
+        # Ruta para ms-inventory
+        - id: ms-inventory-route
+          uri: lb://ms-inventory
+          predicates:
+            - Path=/api/inventories/**
+
+        # Ruta para ms-workout
+        - id: ms-workout-route
+          uri: lb://ms-workout
+          predicates:
+            - Path=/api/workouts/**
+
+        # Ruta para ms-scheduling
+        - id: ms-scheduling-route
+          uri: lb://ms-scheduling
+          predicates:
+            - Path=/api/schedules/**
+
 eureka:
   client:
     service-url:
