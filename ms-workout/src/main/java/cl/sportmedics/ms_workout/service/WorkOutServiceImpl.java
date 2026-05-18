@@ -1,6 +1,5 @@
 package cl.sportmedics.ms_workout.service;
 
-
 import cl.sportmedics.ms_workout.dto.WorkoutDetailDTO;
 import cl.sportmedics.ms_workout.dto.WorkoutRequestDTO;
 import cl.sportmedics.ms_workout.dto.WorkoutResponseDTO;
@@ -50,7 +49,7 @@ public class WorkoutServiceImpl implements WorkoutService {
                         .restSeconds(detailDTO.getRestSeconds())
                         .dayOfWeek(detailDTO.getDayOfWeek().toUpperCase())
                         .build();
-                workout.addDetail(detail); 
+                workout.addDetail(detail);
             }
         }
 
