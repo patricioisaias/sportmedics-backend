@@ -11,3 +11,5 @@ import java.util.List;
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     List<Workout> findByMemberId(Long memberId);
 }
+
+
