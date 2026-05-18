@@ -1,3 +1,0 @@
-INSERT INTO employees (rut, first_name, last_name, email, role, active) VALUES ('15111222-3', 'Mauricio', 'González', 'mgonzalez@sportmedics.cl', 'ADMIN', true);
-INSERT INTO employees (rut, first_name, last_name, email, role, active) VALUES ('17444555-6', 'Carla', 'Pérez', 'cperez@sportmedics.cl', 'TEACHER', true);
-INSERT INTO employees (rut, first_name, last_name, email, role, active) VALUES ('19888999-0', 'Luis', 'Sánchez', 'lsanchez@sportmedics.cl', 'RECEPTIONIST', true);
