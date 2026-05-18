@@ -1,4 +1,4 @@
-package cl.sportmedics.ms_auth;
+package cl.sportmedics.ms_auth.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
