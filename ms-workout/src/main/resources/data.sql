@@ -1,0 +1,3 @@
+INSERT IGNORE INTO workouts (member_id, teacher_id, name, start_date, end_date, active) VALUES (1, 2, 'Hipertrofia Fase 1', '2026-05-17', '2026-06-17', true);
+INSERT IGNORE INTO workout_details (workout_id, exercise_name, muscle_group, sets, reps, rest_seconds, day_of_week) VALUES (1, 'Press de Banca', 'Pecho', 4, 10, 90, 'LUNES');
+INSERT IGNORE INTO workout_details (workout_id, exercise_name, muscle_group, sets, reps, rest_seconds, day_of_week) VALUES (1, 'Sentadilla Libre', 'Piernas', 4, 12, 120, 'MIERCOLES');
