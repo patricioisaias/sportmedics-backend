@@ -1,0 +1,3 @@
+INSERT IGNORE INTO appointments (member_id, employee_id, activity_name, scheduled_date, status) VALUES (1, 2, 'Evaluación Física Inicial', '2026-06-15T10:00:00', 'SCHEDULED');
+INSERT IGNORE INTO appointments (member_id, employee_id, activity_name, scheduled_date, status) VALUES (2, 2, 'Clase de Spinning', '2026-06-15T18:30:00', 'SCHEDULED');
+INSERT IGNORE INTO appointments (member_id, employee_id, activity_name, scheduled_date, status) VALUES (3, 2, 'Entrenamiento Personalizado', '2026-06-16T09:00:00', 'SCHEDULED');
