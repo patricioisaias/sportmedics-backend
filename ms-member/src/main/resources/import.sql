@@ -1,3 +1,0 @@
-INSERT INTO members (rut, first_name, last_name, email, phone, active) VALUES ('19123456-7', 'Daniel', 'Aedo', 'daedo@correo.cl', '+56912345678', true);
-INSERT INTO members (rut, first_name, last_name, email, phone, active) VALUES ('19765432-1', 'Patricio', 'Céspedes', 'pcespedes@correo.cl', '+56987654321', true);
-INSERT INTO members (rut, first_name, last_name, email, phone, active) VALUES ('20111222-3', 'Angelo', 'Ponce', 'aponce@correo.cl', '+56911223344', true);
