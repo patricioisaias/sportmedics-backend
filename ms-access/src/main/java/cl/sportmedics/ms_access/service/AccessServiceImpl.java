@@ -1,13 +1,18 @@
 package cl.sportmedics.ms_access.service;
 
-
+import cl.sportmedics.ms_access.client.BillingFeignClient;
+import cl.sportmedics.ms_access.client.MemberFeignClient;
 import cl.sportmedics.ms_access.dto.AccessRequestDTO;
 import cl.sportmedics.ms_access.dto.AccessResponseDTO;
+import cl.sportmedics.ms_access.dto.BillingStatusDTO;
+import cl.sportmedics.ms_access.dto.MemberDTO;
 import cl.sportmedics.ms_access.entity.Access;
 import cl.sportmedics.ms_access.repository.AccessRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,24 +23,47 @@ import java.util.stream.Collectors;
 public class AccessServiceImpl implements AccessService {
 
     private final AccessRepository repository;
+    private final MemberFeignClient memberClient;
+    private final BillingFeignClient billingClient;
 
     @Override
     public AccessResponseDTO registerAccessAttempt(AccessRequestDTO dto) {
         log.info("Procesando intento de acceso en torniquete para miembro ID: {}", dto.getMemberId());
-        
-        boolean accessGranted = true;
+
+        boolean accessGranted = false;
         String reason = null;
 
-        // 💡 EXPLICACIÓN PARA EL RAMO:
-        // Aquí simulamos la regla de negocio de la rúbrica. 
-        // Si el memberId es igual a 2, simularemos que está moroso (para probar respuestas negativas).
-        // En la siguiente fase, aquí se llamará vía Feign a: ms-billing.getPaymentStatus(dto.getMemberId())
-        if (dto.getMemberId().equals(2L)) {
-            accessGranted = false;
-            reason = "ACCESO DENEGADO: Alumno registra deuda pendiente en ms-billing.";
-            log.warn("Acceso denegado para miembro ID: {}. Razón: {}", dto.getMemberId(), reason);
+        try {
+            // 1. Validar ms-member: Existe y está Activo
+            MemberDTO member = memberClient.getMemberById(dto.getMemberId());
+
+            if (!"Activo".equalsIgnoreCase(member.getStatus())) {
+                reason = "ACCESO DENEGADO: El socio no se encuentra en estado Activo.";
+                log.warn("Acceso denegado para miembro ID: {}. Razón: {}", dto.getMemberId(), reason);
+            } else {
+                // 2. Validar ms-billing: Última boleta pagada
+                BillingStatusDTO billing = billingClient.getBillingStatus(dto.getMemberId());
+
+                if (billing.isHasDebt()) {
+                    reason = "ACCESO DENEGADO: El socio registra mensualidades pendientes.";
+                    log.warn("Acceso denegado para miembro ID: {}. Razón: {}", dto.getMemberId(), reason);
+                } else {
+                    // Pasa todas las validaciones
+                    accessGranted = true;
+                }
+            }
+
+        } catch (FeignException.NotFound e) {
+            // Se captura si ms-member o ms-billing devuelven un 404
+            reason = "ACCESO DENEGADO: Socio no encontrado en los registros.";
+            log.error("Socio ID {} no encontrado: {}", dto.getMemberId(), e.getMessage());
+        } catch (Exception e) {
+            // Captura errores de conexión (ej. microservicio caído)
+            reason = "ACCESO DENEGADO: Error temporal al validar datos del socio.";
+            log.error("Error al comunicar con otros MS para socio ID {}: {}", dto.getMemberId(), e.getMessage());
         }
 
+        // 3. Registrar el intento de acceso en la BD
         Access access = Access.builder()
                 .memberId(dto.getMemberId())
                 .accessDateTime(LocalDateTime.now())
@@ -44,10 +72,11 @@ public class AccessServiceImpl implements AccessService {
                 .build();
 
         Access saved = repository.save(access);
+
         if (saved.getGranted()) {
             log.info("Acceso PERMITIDO exitosamente para registro ID: {}", saved.getId());
         }
-        
+
         return mapToDTO(saved);
     }
 
@@ -64,12 +93,12 @@ public class AccessServiceImpl implements AccessService {
     }
 
     private AccessResponseDTO mapToDTO(Access access) {
-        AccessResponseDTO dto = new AccessResponseDTO();
-        dto.setId(access.getId());
-        dto.setMemberId(access.getMemberId());
-        dto.setAccessDateTime(access.getAccessDateTime());
-        dto.setGranted(access.getGranted());
-        dto.setDenialReason(access.getDenialReason());
-        return dto;
+        AccessResponseDTO responseDTO = new AccessResponseDTO();
+        responseDTO.setId(access.getId());
+        responseDTO.setMemberId(access.getMemberId());
+        responseDTO.setAccessDateTime(access.getAccessDateTime());
+        responseDTO.setGranted(access.getGranted());
+        responseDTO.setDenialReason(access.getDenialReason());
+        return responseDTO;
     }
 }
