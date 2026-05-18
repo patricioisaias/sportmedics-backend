@@ -5,7 +5,7 @@ spring:
   application:
     name: ms-inventory
   datasource:
-    url: jdbc:mysql://localhost:3307/gym_inventory_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/gym_inventory_db?createDatabaseIfNotExist=true
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
