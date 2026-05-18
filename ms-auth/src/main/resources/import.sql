@@ -1,2 +1,0 @@
-INSERT INTO credentials (username, password_hash, role, active) VALUES ('daedo@correo.cl', '$2a$10$xyzSimulatedHashAdmin123', 'ADMIN', true);
-INSERT INTO credentials (username, password_hash, role, active) VALUES ('pcespedes@correo.cl', '$2a$10$xyzSimulatedHashUser456', 'USER', true);
