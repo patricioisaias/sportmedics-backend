@@ -1,2 +1,0 @@
-INSERT INTO billings (member_id, subscription_id, issue_date, due_date, total_amount, status) VALUES (1, 3, '2026-05-01', '2026-05-10', 200000, 'PAID');
-INSERT INTO billings (member_id, subscription_id, issue_date, due_date, total_amount, status) VALUES (2, 1, '2026-05-15', '2026-05-25', 25000, 'PENDING');
