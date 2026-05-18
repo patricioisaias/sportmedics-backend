@@ -1,2 +1,0 @@
-INSERT INTO notifications (recipient_email, subject, message, sent_at, status) VALUES ('daedo@correo.cl', 'Bienvenido a Sportmedics', 'Tu cuenta ha sido creada exitosamente.', '2026-05-17 10:00:00', 'SENT');
-INSERT INTO notifications (recipient_email, subject, message, sent_at, status) VALUES ('pcespedes@correo.cl', 'Aviso de Vencimiento', 'Tu plan vence en 3 días.', '2026-05-17 11:30:00', 'SENT');
