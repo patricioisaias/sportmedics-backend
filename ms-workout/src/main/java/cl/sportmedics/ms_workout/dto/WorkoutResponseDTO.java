@@ -1,6 +1,5 @@
 package cl.sportmedics.ms_workout.dto;
 
-
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;

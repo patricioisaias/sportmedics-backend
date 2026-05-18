@@ -1,6 +1,5 @@
 package cl.sportmedics.ms_workout.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 

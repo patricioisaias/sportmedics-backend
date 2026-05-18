@@ -1,6 +1,5 @@
 package cl.sportmedics.ms_workout.controller;
 
-
 import cl.sportmedics.ms_workout.dto.WorkoutRequestDTO;
 import cl.sportmedics.ms_workout.dto.WorkoutResponseDTO;
 import cl.sportmedics.ms_workout.service.WorkoutService;
