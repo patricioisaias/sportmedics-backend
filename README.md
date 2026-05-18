@@ -1,6 +1,6 @@
 # Sistema de Gestión para Gimnasio Sportmedics 🏋️‍♂️
 
-## 📖 Descripción del Proyecto
+## Descripción del Proyecto
 Sistema de gestión para un gimnasio de barrio orientado a optimizar procesos como la gestión de usuarios y membresías, control de asistencia, asignación de rutinas, validación de suscripciones y control de inventario. El sistema está diseñado bajo una arquitectura de microservicios, permitiendo escalabilidad, desacoplamiento y facilidad de mantenimiento.
 
 * **Equipo:** Daniel Aedo, Patricio Céspedes, Angelo Ponce
@@ -10,7 +10,7 @@ Sistema de gestión para un gimnasio de barrio orientado a optimizar procesos co
 
 ---
 
-## 🛠️ Arquitectura y Tecnologías
+## Arquitectura y Tecnologías
 El sistema está construido sobre un ecosistema distribuido aplicando el patrón **CSR (Controller-Service-Repository)**.
 
 * **Core:** Java 21, Spring Boot 3.x
@@ -22,32 +22,32 @@ El sistema está construido sobre un ecosistema distribuido aplicando el patrón
 
 ---
 
-## 📦 Lista de Microservicios
+## Lista de Microservicios
 
-| Microservicio | Base de Datos | Descripción |
-| :--- | :--- | :--- |
-| **`service-registry`** | *(No aplica)* | Directorio Eureka para que los servicios se encuentren y registren. |
-| **`api-gateway`** | *(No aplica)* | Enrutador principal y punto de entrada único hacia el ecosistema. |
-| **`ms-auth`** | `gym_auth_db` | Gestión de credenciales, login, roles y generación de tokens de acceso. |
-| **`ms-employee`** | `gym_employee_db` | Perfiles del staff: profesores, recepcionistas, administradores. |
-| **`ms-member`** | `gym_member_db` | Perfiles de socios, métricas corporales y estado activo/inactivo. |
-| **`ms-subscription`** | `gym_subscription_db` | Catálogo de planes, precios y control de vigencia. |
-| **`ms-workout`** | `gym_workout_db` | Creación de rutinas de hipertrofia, ejercicios y series. |
-| **`ms-scheduling`** | `gym_scheduling_db` | Agendamiento de clases grupales y evaluaciones con profesores. |
-| **`ms-billing`** | `gym_billing_db` | Registro de boletas, pagos y control de morosidad. |
-| **`ms-access`** | `gym_access_db` | Control de ingresos al local validando el estado financiero de la membresía. |
-| **`ms-inventory`** | `gym_inventory_db` | Control de activos físicos del gimnasio (máquinas, pesas, suplementos). |
-| **`ms-notification`** | `gym_notification_db` | Servicio transversal para envío de alertas y comprobantes. |
+| Microservicio | Puerto | Base de Datos | Descripción |
+| :--- | :--- | :--- | :--- |
+| **`service-registry`** | `8761` | *(No aplica)* | Directorio Eureka para que los servicios se encuentren y registren. |
+| **`api-gateway`** | `8080` | *(No aplica)* | Enrutador principal y punto de entrada único hacia el ecosistema. |
+| **`ms-subscription`** | `8081` | `gym_subscription_db` | Catálogo de planes, precios y control de vigencia. |
+| **`ms-member`** | `8082` | `gym_member_db` | Perfiles de socios, métricas corporales y estado activo/inactivo. |
+| **`ms-employee`** | `8083` | `gym_employee_db` | Perfiles del staff: profesores, recepcionistas, administradores. |
+| **`ms-inventory`** | `8084` | `gym_inventory_db` | Control de activos físicos del gimnasio (máquinas, pesas, suplementos). |
+| **`ms-workout`** | `8085` | `gym_workout_db` | Creación de rutinas de hipertrofia, ejercicios y series. |
+| **`ms-scheduling`** | `8086` | `gym_scheduling_db` | Agendamiento de clases grupales y evaluaciones con profesores. |
+| **`ms-billing`** | `8087` | `gym_billing_db` | Registro de boletas, pagos y control de morosidad. |
+| **`ms-access`** | `8088` | `gym_access_db` | Control de ingresos al local validando el estado financiero de la membresía. |
+| **`ms-notification`** | `8089` | `gym_notification_db` | Servicio transversal para envío de alertas y comprobantes. |
+| **`ms-auth`** | `8090` | `gym_auth_db` | Gestión de credenciales, login, roles y generación de tokens de acceso. |
 
 ---
 
-## 🚀 Guía de Instalación y Ejecución
+## Guía de Instalación y Ejecución
 
 Para evitar errores de "Service Unavailable" o fallos de conexión entre instancias, el ecosistema debe inicializarse siguiendo estrictamente este orden:
 
 ### 1. Preparación de Base de Datos
 * Asegurarse de que el motor MySQL (vía XAMPP/Laragon) esté en ejecución.
-* Crear manualmente las **10 bases de datos** listadas en la tabla superior antes de iniciar los servicios. 
+* Crear manualmente las **10 bases de datos** listadas en la tabla superior antes de iniciar los servicios. Cada microservicio debe tener su base de datos propia, sin compartir tablas.
 * *(Nota: Los servicios están configurados para conectarse al puerto `3307` por defecto, ajusta tu `application.properties` o `application.yml` al puerto `3306` si utilizas la configuración estándar de XAMPP).*
 
 ### 2. Secuencia de Arranque
@@ -57,7 +57,7 @@ Para evitar errores de "Service Unavailable" o fallos de conexión entre instanc
 
 ---
 
-## 🧪 Documentación y Pruebas
+## Documentación y Pruebas
 
 La documentación interactiva de los endpoints está generada automáticamente con Swagger. Una vez que los servicios estén arriba y registrados, se pueden visualizar y probar las APIs accediendo a la ruta de la interfaz en el navegador local:
 
