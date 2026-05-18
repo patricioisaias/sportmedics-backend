@@ -7,8 +7,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/gym_member_db?createDatabaseIfNotExist=true
     username: root
-    password:
+    password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,19 +19,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-
-
-sql:
-    init:
-      mode: always 
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    # 2. Agrega esto para que espere a que Hibernate cree la tabla ANTES de insertar los datos
-    defer-datasource-initialization: true
