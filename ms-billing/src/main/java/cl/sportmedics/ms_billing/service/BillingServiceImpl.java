@@ -39,11 +39,13 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    @Transactional(readOnly = true) 
     public List<BillingResponseDTO> getAll() {
         return repository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true) 
     public BillingResponseDTO getById(Long id) {
         return repository.findById(id).map(this::mapToDTO)
                 .orElseThrow(() -> new RuntimeException("Cobro no encontrado."));
@@ -113,6 +115,7 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public boolean checkDebtStatus(Long memberId) {
         log.info("Verificando deudas para el socio ID: {}", memberId);
         List<Billing> bills = repository.findByMemberId(memberId);
@@ -122,7 +125,7 @@ public class BillingServiceImpl implements BillingService {
             return false;
         }
 
-        // Si hay AL MENOS UNA boleta con estado "PENDING", entonces tiene deuda (true)
+        
         return bills.stream()
                 .anyMatch(bill -> "PENDING".equalsIgnoreCase(bill.getStatus()));
     }
@@ -133,10 +136,7 @@ public class BillingServiceImpl implements BillingService {
         log.info("Inicializando estado financiero (Defensa en profundidad) para socio ID: {}", memberId);
         List<Billing> bills = repository.findByMemberId(memberId);
 
-        // Siguiendo la lógica de la rúbrica (como el stock en 0):
-        // Si no existe historial, creamos una "boleta de matrícula/inscripción" de
-        // costo $0 pagada,
-        // o simplemente lo dejamos registrado en los logs para futuros cobros.
+        
         if (bills.isEmpty()) {
             Billing welcomeBilling = Billing.builder()
                     .memberId(memberId)
