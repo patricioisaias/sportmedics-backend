@@ -57,7 +57,7 @@ spring:
         - id: ms-inventory-route
           uri: lb://ms-inventory
           predicates:
-            - Path=/api/inventories/**
+            - Path=/api/inventory/**
 
         # Ruta para ms-workout
         - id: ms-workout-route
