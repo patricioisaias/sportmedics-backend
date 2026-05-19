@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/scheduling")
+@RequestMapping("/api/schedules")
 @RequiredArgsConstructor
 public class AppointmentController {
 
