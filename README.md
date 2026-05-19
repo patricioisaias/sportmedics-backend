@@ -55,12 +55,5 @@ Para evitar errores de "Service Unavailable" o fallos de conexión entre instanc
 2. **Ejecutar Microservicios de Negocio:** Levantar de forma independiente `ms-auth`, `ms-member`, `ms-subscription`, `ms-inventory`, etc. Refrescar el dashboard de Eureka y asegurarse de que todos aparezcan registrados en estado **UP**.
 3. **Ejecutar `api-gateway`:** Este servicio debe ser el **último** en levantarse. Será el único punto de entrada disponible, operando por defecto en el puerto `8080`.
 
----
-
-## Documentación y Pruebas
-
-La documentación interactiva de los endpoints está generada automáticamente con Swagger. Una vez que los servicios estén arriba y registrados, se pueden visualizar y probar las APIs accediendo a la ruta de la interfaz en el navegador local:
-
-👉 `http://localhost:[PUERTO-DEL-SERVICIO]/swagger-ui.html`
-
-*(Asegúrate de reemplazar `[PUERTO-DEL-SERVICIO]` por el puerto específico asignado a cada microservicio en su respectivo archivo properties).*
+VIDEO TEST
+https://drive.google.com/file/d/1i2IO8d3pNlpLtrP9a5FCGTUi7sGSiT-k/view?usp=sharing
