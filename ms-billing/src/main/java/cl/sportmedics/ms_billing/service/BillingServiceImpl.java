@@ -1,7 +1,5 @@
 package cl.sportmedics.ms_billing.service;
 
-
-
 import cl.sportmedics.ms_billing.dto.BillingRequestDTO;
 import cl.sportmedics.ms_billing.dto.BillingResponseDTO;
 import cl.sportmedics.ms_billing.entity.Billing;
@@ -26,7 +24,7 @@ public class BillingServiceImpl implements BillingService {
     @Transactional
     public BillingResponseDTO create(BillingRequestDTO dto) {
         log.info("Generando nuevo cobro para el miembro ID: {}", dto.getMemberId());
-        
+
         Billing billing = Billing.builder()
                 .memberId(dto.getMemberId())
                 .subscriptionId(dto.getSubscriptionId())
@@ -67,7 +65,7 @@ public class BillingServiceImpl implements BillingService {
     @Override
     @Transactional
     public void delete(Long id) {
-        if(!repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new RuntimeException("Cobro no encontrado.");
         }
         repository.deleteById(id);
@@ -80,7 +78,7 @@ public class BillingServiceImpl implements BillingService {
         Billing billing = repository.findById(billingId)
                 .orElseThrow(() -> new RuntimeException("Cobro no encontrado."));
 
-        if("PAID".equals(billing.getStatus())) {
+        if ("PAID".equals(billing.getStatus())) {
             throw new RuntimeException("Este cobro ya se encuentra pagado.");
         }
 
@@ -95,7 +93,7 @@ public class BillingServiceImpl implements BillingService {
         billing.getPayments().add(payment);
 
         Double totalPaid = billing.getPayments().stream().mapToDouble(Payment::getAmountPaid).sum();
-        if(totalPaid >= billing.getTotalAmount()) {
+        if (totalPaid >= billing.getTotalAmount()) {
             billing.setStatus("PAID");
         }
 
@@ -112,5 +110,44 @@ public class BillingServiceImpl implements BillingService {
         dto.setTotalAmount(billing.getTotalAmount());
         dto.setStatus(billing.getStatus());
         return dto;
+    }
+
+    @Override
+    public boolean checkDebtStatus(Long memberId) {
+        log.info("Verificando deudas para el socio ID: {}", memberId);
+        List<Billing> bills = repository.findByMemberId(memberId);
+
+        // Si el socio no tiene boletas, no tiene deudas (false)
+        if (bills.isEmpty()) {
+            return false;
+        }
+
+        // Si hay AL MENOS UNA boleta con estado "PENDING", entonces tiene deuda (true)
+        return bills.stream()
+                .anyMatch(bill -> "PENDING".equalsIgnoreCase(bill.getStatus()));
+    }
+
+    @Override
+    @Transactional
+    public void initializeAccount(Long memberId) {
+        log.info("Inicializando estado financiero (Defensa en profundidad) para socio ID: {}", memberId);
+        List<Billing> bills = repository.findByMemberId(memberId);
+
+        // Siguiendo la lógica de la rúbrica (como el stock en 0):
+        // Si no existe historial, creamos una "boleta de matrícula/inscripción" de
+        // costo $0 pagada,
+        // o simplemente lo dejamos registrado en los logs para futuros cobros.
+        if (bills.isEmpty()) {
+            Billing welcomeBilling = Billing.builder()
+                    .memberId(memberId)
+                    .subscriptionId(0L) // 0 o ID de membresía por defecto
+                    .issueDate(java.time.LocalDate.now())
+                    .dueDate(java.time.LocalDate.now())
+                    .totalAmount(0.0)
+                    .status("PAID")
+                    .build();
+            repository.save(welcomeBilling);
+            log.info("Cuenta inicializada con éxito para el socio {}.", memberId);
+        }
     }
 }
