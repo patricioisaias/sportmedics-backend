@@ -1,8 +1,8 @@
 package cl.sportmedics.ms_billing.controller;
 
-
 import cl.sportmedics.ms_billing.dto.BillingRequestDTO;
 import cl.sportmedics.ms_billing.dto.BillingResponseDTO;
+import cl.sportmedics.ms_billing.dto.BillingStatusDTO;
 import cl.sportmedics.ms_billing.service.BillingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +55,22 @@ public class BillingController {
 
         service.processPayment(id, amount, method, ref);
         return ResponseEntity.ok(Map.of("message", "Pago procesado correctamente."));
+    }
+
+    // ENDPOINT 1: Para que ms-access (El Torniquete) pregunte si hay deuda
+    @GetMapping("/status/{memberId}")
+    public ResponseEntity<BillingStatusDTO> getStatus(@PathVariable Long memberId) {
+        boolean hasDebt = service.checkDebtStatus(memberId);
+        BillingStatusDTO dto = new BillingStatusDTO();
+        dto.setMemberId(memberId);
+        dto.setHasDebt(hasDebt);
+        return ResponseEntity.ok(dto);
+    }
+
+    // ENDPOINT 2: Para que ms-member (El Creador) avise que nació un socio
+    @PostMapping("/initialize/{memberId}")
+    public ResponseEntity<Void> initialize(@PathVariable Long memberId) {
+        service.initializeAccount(memberId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
