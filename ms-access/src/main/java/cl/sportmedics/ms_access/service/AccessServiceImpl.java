@@ -12,6 +12,7 @@ import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <-- IMPORT AGREGADO
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +28,7 @@ public class AccessServiceImpl implements AccessService {
     private final BillingFeignClient billingClient;
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA (Guarda en BD el registro)
     public AccessResponseDTO registerAccessAttempt(AccessRequestDTO dto) {
         log.info("Procesando intento de acceso en torniquete para miembro ID: {}", dto.getMemberId());
 
@@ -81,12 +83,14 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<AccessResponseDTO> getAllAccessLogs() {
         log.info("Consultando historial global de accesos.");
         return repository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<AccessResponseDTO> getLogsByMemberId(Long memberId) {
         log.info("Consultando historial de accesos para el miembro ID: {}", memberId);
         return repository.findByMemberId(memberId).stream().map(this::mapToDTO).collect(Collectors.toList());

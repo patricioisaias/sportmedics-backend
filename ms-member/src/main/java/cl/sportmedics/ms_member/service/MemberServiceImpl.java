@@ -7,6 +7,7 @@ import cl.sportmedics.ms_member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <-- IMPORT AGREGADO
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository repository;
 
     @Override
+    @Transactional 
     public MemberResponseDTO create(MemberRequestDTO dto) {
         log.info("Intentando registrar nuevo miembro con RUT: {}", dto.getRut());
 
@@ -43,12 +45,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<MemberResponseDTO> getAll() {
         log.info("Consultando la lista completa de miembros.");
         return repository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public MemberResponseDTO getById(Long id) {
         log.info("Buscando miembro con ID: {}", id);
         return repository.findById(id).map(this::mapToDTO)
@@ -56,6 +60,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public MemberResponseDTO update(Long id, MemberRequestDTO dto) {
         log.info("Actualizando datos del miembro ID: {}", id);
         Member member = repository.findById(id)
@@ -73,6 +78,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public void delete(Long id) {
         log.info("Eliminando miembro ID: {}", id);
         if (!repository.existsById(id)) {

@@ -7,6 +7,7 @@ import cl.sportmedics.ms_subscription.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <-- IMPORT AGREGADO
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository repository;
 
     @Override
+    @Transactional
     public SubscriptionResponseDTO create(SubscriptionRequestDTO dto) {
         log.info("Iniciando creación de plan: {}", dto.getName());
         if (repository.findByName(dto.getName()).isPresent()) {
@@ -35,12 +37,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<SubscriptionResponseDTO> getAll() {
         log.info("Consultando todos los planes");
         return repository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public SubscriptionResponseDTO getById(Long id) {
         log.info("Consultando plan ID: {}", id);
         return repository.findById(id).map(this::mapToDTO)
@@ -48,6 +52,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public SubscriptionResponseDTO update(Long id, SubscriptionRequestDTO dto) {
         log.info("Actualizando plan ID: {}", id);
         Subscription sub = repository.findById(id)
@@ -63,6 +68,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public void delete(Long id) {
         log.info("Eliminando plan ID: {}", id);
         if (!repository.existsById(id)) {

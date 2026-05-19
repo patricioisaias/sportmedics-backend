@@ -7,6 +7,7 @@ import cl.sportmedics.ms_inventory.repository.InventoryItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <-- IMPORT AGREGADO
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class InventoryServiceImpl implements InventoryService {
     private final InventoryItemRepository repository;
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public InventoryItemResponseDTO create(InventoryItemRequestDTO dto) {
         log.info("Registrando nuevo artículo de inventario: {}", dto.getName());
 
@@ -39,12 +41,14 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<InventoryItemResponseDTO> getAll() {
         log.info("Consultando catálogo completo de inventario.");
         return repository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public InventoryItemResponseDTO getById(Long id) {
         log.info("Buscando artículo con ID: {}", id);
         return repository.findById(id).map(this::mapToDTO)
@@ -52,6 +56,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional(readOnly = true) // <-- AGREGADO PARA LECTURA
     public List<InventoryItemResponseDTO> getByCategory(String category) {
         log.info("Filtrando inventario por categoría: {}", category);
         return repository.findByCategory(category.toUpperCase()).stream()
@@ -59,6 +64,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public InventoryItemResponseDTO update(Long id, InventoryItemRequestDTO dto) {
         log.info("Actualizando datos del artículo ID: {}", id);
         InventoryItem item = repository.findById(id)
@@ -75,6 +81,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional // <-- AGREGADO PARA ESCRITURA
     public void delete(Long id) {
         log.info("Eliminando artículo ID: {}", id);
         if (!repository.existsById(id)) {
