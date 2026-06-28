@@ -1,4 +1,4 @@
-﻿package cl.sportmedics.ms_access.config;
+package cl.sportmedics.ms_access.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -14,6 +14,6 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("API Sportmedics Access")
                         .version("1.0")
-                        .description("DocumentaciÃ³n de la API para el microservicio ms-access"));
+                        .description("Documentación de la API para el microservicio ms-access"));
     }
 }

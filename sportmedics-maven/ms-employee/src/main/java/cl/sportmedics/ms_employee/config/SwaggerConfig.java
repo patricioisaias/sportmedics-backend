@@ -1,4 +1,4 @@
-﻿package cl.sportmedics.ms_employee.config;
+package cl.sportmedics.ms_employee.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -14,6 +14,6 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("API Sportmedics Employee")
                         .version("1.0")
-                        .description("DocumentaciÃ³n de la API para el microservicio ms-employee"));
+                        .description("Documentación de la API para el microservicio ms-employee"));
     }
 }

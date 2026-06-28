@@ -1,10 +1,11 @@
-cl\sportmedics\ms_notification\MsNotificationApplication.class
 cl\sportmedics\ms_notification\entity\Notification.class
 cl\sportmedics\ms_notification\service\NotificationServiceImpl.class
-cl\sportmedics\ms_notification\service\NotificationService.class
 cl\sportmedics\ms_notification\exception\GlobalExceptionHandler.class
 cl\sportmedics\ms_notification\repository\NotificationRepository.class
-cl\sportmedics\ms_notification\entity\Notification$NotificationBuilder.class
-cl\sportmedics\ms_notification\controller\NotificationController.class
 cl\sportmedics\ms_notification\dto\NotificationRequestDTO.class
 cl\sportmedics\ms_notification\dto\NotificationResponseDTO.class
+cl\sportmedics\ms_notification\MsNotificationApplication.class
+cl\sportmedics\ms_notification\config\SwaggerConfig.class
+cl\sportmedics\ms_notification\service\NotificationService.class
+cl\sportmedics\ms_notification\entity\Notification$NotificationBuilder.class
+cl\sportmedics\ms_notification\controller\NotificationController.class
