@@ -1,3 +1,0 @@
-INSERT IGNORE INTO inventory_items (name, category, quantity, location, active) VALUES ('Cinta de Correr Pro', 'MACHINES', 5, 'Zona Cardio', true);
-INSERT IGNORE INTO inventory_items (name, category, quantity, location, active) VALUES ('Mancuernas 10kg', 'WEIGHTS', 12, 'Zona Peso Libre', true);
-INSERT IGNORE INTO inventory_items (name, category, quantity, location, active) VALUES ('Colchoneta Yoga', 'ACCESSORIES', 20, 'Sala Clases Grupales', true);
