@@ -1,0 +1,9 @@
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\controller\InventoryController.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\dto\InventoryItemRequestDTO.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\dto\InventoryItemResponseDTO.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\entity\InventoryItem.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\exception\GlobalExceptionHandler.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\MsInventoryApplication.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\repository\InventoryItemRepository.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\service\InventoryService.java
+D:\Documentos\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\service\InventoryServiceImpl.java

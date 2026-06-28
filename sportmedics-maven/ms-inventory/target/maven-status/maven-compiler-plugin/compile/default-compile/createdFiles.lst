@@ -1,0 +1,10 @@
+cl\sportmedics\ms_inventory\repository\InventoryItemRepository.class
+cl\sportmedics\ms_inventory\MsInventoryApplication.class
+cl\sportmedics\ms_inventory\dto\InventoryItemRequestDTO.class
+cl\sportmedics\ms_inventory\entity\InventoryItem.class
+cl\sportmedics\ms_inventory\dto\InventoryItemResponseDTO.class
+cl\sportmedics\ms_inventory\service\InventoryService.class
+cl\sportmedics\ms_inventory\exception\GlobalExceptionHandler.class
+cl\sportmedics\ms_inventory\service\InventoryServiceImpl.class
+cl\sportmedics\ms_inventory\entity\InventoryItem$InventoryItemBuilder.class
+cl\sportmedics\ms_inventory\controller\InventoryController.class
