@@ -1,5 +1,11 @@
 package cl.sportmedics.ms_workout.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
 import cl.sportmedics.ms_workout.dto.WorkoutRequestDTO;
 import cl.sportmedics.ms_workout.dto.WorkoutResponseDTO;
 import cl.sportmedics.ms_workout.service.WorkoutService;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
+@Tag(name = "Workout", description = "Operaciones relacionadas con Workout")
 @RestController
 @RequestMapping("/api/workouts")
 @RequiredArgsConstructor
@@ -20,6 +27,12 @@ public class WorkoutController {
 
     private final WorkoutService service;
 
+    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+        @ApiResponse(responseCode = "400", description = "Petición inválida"),
+        @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    })
     @PostMapping
     public ResponseEntity<WorkoutResponseDTO> create(@Valid @RequestBody WorkoutRequestDTO dto) {
         log.info("Petición POST recibida en /api/workouts");
@@ -27,6 +40,12 @@ public class WorkoutController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+        @ApiResponse(responseCode = "400", description = "Petición inválida"),
+        @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    })
     @GetMapping
     public ResponseEntity<List<WorkoutResponseDTO>> getAll() {
         log.info("Petición GET recibida en /api/workouts");
@@ -34,6 +53,12 @@ public class WorkoutController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+        @ApiResponse(responseCode = "400", description = "Petición inválida"),
+        @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<WorkoutResponseDTO> getById(@PathVariable Long id) {
         log.info("Petición GET recibida en /api/workouts/{}", id);
@@ -41,6 +66,12 @@ public class WorkoutController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+        @ApiResponse(responseCode = "400", description = "Petición inválida"),
+        @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Petición DELETE recibida en /api/workouts/{}", id);
