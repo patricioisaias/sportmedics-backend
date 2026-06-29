@@ -1,0 +1,10 @@
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\config\SwaggerConfig.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\controller\InventoryController.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\dto\InventoryItemRequestDTO.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\dto\InventoryItemResponseDTO.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\entity\InventoryItem.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\exception\GlobalExceptionHandler.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\MsInventoryApplication.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\repository\InventoryItemRepository.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\service\InventoryService.java
+C:\Users\patri\Documents\GitHub\sportmedics-backend\sportmedics-maven\ms-inventory\src\main\java\cl\sportmedics\ms_inventory\service\InventoryServiceImpl.java
