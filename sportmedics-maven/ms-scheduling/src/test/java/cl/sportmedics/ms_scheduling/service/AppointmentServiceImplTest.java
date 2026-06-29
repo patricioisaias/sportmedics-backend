@@ -59,6 +59,113 @@ public class AppointmentServiceImplTest {
         // VERIFY: comprobar llamadas al mock
         verify(repository).save(any(Appointment.class));
     }
+
+    @Test
+    public void testGetAllAppointments() {
+        // ARRANGE: preparar lista de entidades simuladas
+        Appointment apt1 = new Appointment();
+        apt1.setId(1L);
+        apt1.setStatus("SCHEDULED");
+        
+        Appointment apt2 = new Appointment();
+        apt2.setId(2L);
+        apt2.setStatus("COMPLETED");
+
+        when(repository.findAll()).thenReturn(java.util.Arrays.asList(apt1, apt2));
+
+        // ACT: ejecutar método
+        java.util.List<AppointmentResponseDTO> response = service.getAll();
+
+        // ASSERT: verificar el resultado
+        assertNotNull(response);
+        assertEquals(2, response.size());
+        assertEquals(1L, response.get(0).getId());
+        assertEquals(2L, response.get(1).getId());
+
+        // VERIFY: comprobar llamadas al mock
+        verify(repository).findAll();
+    }
+
+    @Test
+    public void testGetById() {
+        // ARRANGE: crear entidad envuelta en Optional
+        Appointment apt = new Appointment();
+        apt.setId(5L);
+        apt.setStatus("COMPLETED");
+
+        when(repository.findById(5L)).thenReturn(java.util.Optional.of(apt));
+
+        // ACT: buscar por ID
+        AppointmentResponseDTO response = service.getById(5L);
+
+        // ASSERT: validar resultados
+        assertNotNull(response);
+        assertEquals(5L, response.getId());
+        assertEquals("COMPLETED", response.getStatus());
+
+        // VERIFY: confirmar llamada al repositorio
+        verify(repository).findById(5L);
+    }
+
+    @Test
+    public void testGetByMemberId() {
+        // ARRANGE: simular respuesta del historial del socio
+        Appointment apt = new Appointment();
+        apt.setId(7L);
+        apt.setMemberId(1L);
+
+        when(repository.findByMemberId(1L)).thenReturn(java.util.Collections.singletonList(apt));
+
+        // ACT: solicitar historial del socio
+        java.util.List<AppointmentResponseDTO> response = service.getByMemberId(1L);
+
+        // ASSERT: debe venir 1 cita
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(7L, response.get(0).getId());
+
+        // VERIFY
+        verify(repository).findByMemberId(1L);
+    }
+
+    @Test
+    public void testUpdateStatus() {
+        // ARRANGE: simular cita existente en estado SCHEDULED
+        Appointment apt = new Appointment();
+        apt.setId(5L);
+        apt.setStatus("SCHEDULED");
+
+        // Mock 1: Al buscarla, devolver la entidad original
+        when(repository.findById(5L)).thenReturn(java.util.Optional.of(apt));
+        
+        // Mock 2: Al guardarla, devolverla (se asume que el servicio le cambió el estado)
+        when(repository.save(any(Appointment.class))).thenReturn(apt);
+
+        // ACT: solicitar cambio de estado a COMPLETED
+        AppointmentResponseDTO response = service.updateStatus(5L, "COMPLETED");
+
+        // ASSERT: validar que la respuesta refleja el nuevo estado
+        assertNotNull(response);
+        assertEquals(5L, response.getId());
+        assertEquals("COMPLETED", response.getStatus());
+
+        // VERIFY: confirmar flujo de lectura -> actualización
+        verify(repository).findById(5L);
+        verify(repository).save(any(Appointment.class));
+    }
+
+    @Test
+    public void testDelete() {
+        // ARRANGE: simular que la cita existe en BD
+        when(repository.existsById(1L)).thenReturn(true);
+
+        // ACT: ejecutar eliminación
+        service.delete(1L);
+
+        // VERIFY: confirmar que se verificó existencia y luego se borró
+        verify(repository).existsById(1L);
+        verify(repository).deleteById(1L);
+    }
 }
 /*
  Caso hipotético de falla para QA:
