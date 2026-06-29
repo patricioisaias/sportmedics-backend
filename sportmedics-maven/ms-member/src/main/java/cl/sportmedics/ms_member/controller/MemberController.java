@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Member", description = "Operaciones relacionadas con Member")
+@Tag(name = "Miembros", description = "Operaciones relacionadas con Miembros")
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class MemberController {
 
     private final MemberService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Member")
+    @Operation(summary = "Crear un miembro", description = "Crea y guarda un miembro en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -39,7 +39,7 @@ public class MemberController {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Member")
+    @Operation(summary = "Obtener todos los miembros", description = "Retorna una lista de todos los miembros registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -51,7 +51,7 @@ public class MemberController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Member")
+    @Operation(summary = "Obtener un miembro por ID", description = "Retorna los detalles de un miembro específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -63,7 +63,7 @@ public class MemberController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Member")
+    @Operation(summary = "Actualizar un miembro", description = "Actualiza los datos de un miembro existente por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -75,7 +75,7 @@ public class MemberController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Member")
+    @Operation(summary = "Eliminar un miembro", description = "Elimina un miembro del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

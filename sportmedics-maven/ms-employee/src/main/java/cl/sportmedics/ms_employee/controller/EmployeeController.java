@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Employee", description = "Operaciones relacionadas con Employee")
+@Tag(name = "Empleados", description = "Operaciones relacionadas con Empleados")
 @RestController
 @RequestMapping("/api/employees")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class EmployeeController {
 
     private final EmployeeService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Employee")
+    @Operation(summary = "Crear un empleado", description = "Crea y guarda un empleado en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -39,7 +39,7 @@ public class EmployeeController {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Employee")
+    @Operation(summary = "Obtener todos los empleados", description = "Retorna una lista de todos los empleados registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -50,7 +50,7 @@ public class EmployeeController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Employee")
+    @Operation(summary = "Obtener un empleado por ID", description = "Retorna los detalles de un empleado específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -61,7 +61,7 @@ public class EmployeeController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Employee")
+    @Operation(summary = "Actualizar un empleado", description = "Actualiza los datos de un empleado existente por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -72,7 +72,7 @@ public class EmployeeController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Employee")
+    @Operation(summary = "Eliminar un empleado", description = "Elimina un empleado del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

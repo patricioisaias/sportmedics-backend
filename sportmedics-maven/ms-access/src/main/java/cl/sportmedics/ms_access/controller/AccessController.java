@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Access", description = "Operaciones relacionadas con Access")
+@Tag(name = "Accesos", description = "Operaciones relacionadas con Accesos")
 @RestController
 @RequestMapping("/api/accesses")
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class AccessController {
 
     private final AccessService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Access")
+    @Operation(summary = "Verificar e ingresar", description = "Verifica y registra un intento de acceso")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -38,7 +38,7 @@ public class AccessController {
         return new ResponseEntity<>(service.registerAccessAttempt(dto), HttpStatus.OK);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Access")
+    @Operation(summary = "Obtener todos los registros de acceso", description = "Retorna una lista de todos los registros de acceso registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -49,7 +49,7 @@ public class AccessController {
         return ResponseEntity.ok(service.getAllAccessLogs());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Access")
+    @Operation(summary = "Obtener registros de acceso por miembro", description = "Retorna una lista de registros de acceso asociados a un miembro")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Auth", description = "Operaciones relacionadas con Auth")
+@Tag(name = "Autenticación", description = "Operaciones relacionadas con Autenticación")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class AuthController {
 
     private final AuthService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Auth")
+    @Operation(summary = "Registrarse", description = "Registra un nuevo usuario en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -39,7 +39,7 @@ public class AuthController {
         return new ResponseEntity<>(service.register(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Auth")
+    @Operation(summary = "Iniciar sesión", description = "Inicia sesión en el sistema y retorna un token")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -51,7 +51,7 @@ public class AuthController {
         return ResponseEntity.ok(service.login(dto));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Auth")
+    @Operation(summary = "Obtener todos los sesiones", description = "Retorna una lista de todos los sesiones registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -62,7 +62,7 @@ public class AuthController {
         return ResponseEntity.ok(service.getAllUsers());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Auth")
+    @Operation(summary = "Eliminar una sesión", description = "Elimina una sesión del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

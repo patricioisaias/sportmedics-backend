@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Subscription", description = "Operaciones relacionadas con Subscription")
+@Tag(name = "Suscripciones", description = "Operaciones relacionadas con Suscripciones")
 @RestController
 @RequestMapping("/api/subscriptions")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class SubscriptionController {
 
     private final SubscriptionService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Subscription")
+    @Operation(summary = "Crear una suscripción", description = "Crea y guarda una suscripción en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -39,7 +39,7 @@ public class SubscriptionController {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Subscription")
+    @Operation(summary = "Obtener todos los suscripciones", description = "Retorna una lista de todos los suscripciones registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -51,7 +51,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Subscription")
+    @Operation(summary = "Obtener una suscripción por ID", description = "Retorna los detalles de una suscripción específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -63,7 +63,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Subscription")
+    @Operation(summary = "Actualizar una suscripción", description = "Actualiza los datos de una suscripción existente por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -76,7 +76,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Subscription")
+    @Operation(summary = "Eliminar una suscripción", description = "Elimina una suscripción del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Notification", description = "Operaciones relacionadas con Notification")
+@Tag(name = "Notificaciones", description = "Operaciones relacionadas con Notificaciones")
 @RestController
 @RequestMapping("/api/notifications")
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class NotificationController {
 
     private final NotificationService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Notification")
+    @Operation(summary = "Crear una notificación", description = "Crea y guarda una notificación en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -38,7 +38,7 @@ public class NotificationController {
         return new ResponseEntity<>(service.sendNotification(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Notification")
+    @Operation(summary = "Obtener todos los notificaciones", description = "Retorna una lista de todos los notificaciones registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -49,7 +49,7 @@ public class NotificationController {
         return ResponseEntity.ok(service.getAllNotifications());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Notification")
+    @Operation(summary = "Obtener todos los notificaciones", description = "Retorna una lista de todos los notificaciones registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

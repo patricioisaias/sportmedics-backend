@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Workout", description = "Operaciones relacionadas con Workout")
+@Tag(name = "Rutinas", description = "Operaciones relacionadas con Rutinas")
 @RestController
 @RequestMapping("/api/workouts")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class WorkoutController {
 
     private final WorkoutService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @Operation(summary = "Crear una rutina", description = "Crea y guarda una rutina en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -40,7 +40,7 @@ public class WorkoutController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @Operation(summary = "Obtener todos los rutinas", description = "Retorna una lista de todos los rutinas registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -53,7 +53,7 @@ public class WorkoutController {
         return ResponseEntity.ok(list);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @Operation(summary = "Obtener una rutina por ID", description = "Retorna los detalles de una rutina específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -66,7 +66,7 @@ public class WorkoutController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Workout")
+    @Operation(summary = "Eliminar una rutina", description = "Elimina una rutina del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),

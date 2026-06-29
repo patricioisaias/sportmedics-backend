@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Inventory", description = "Operaciones relacionadas con Inventory")
+@Tag(name = "Inventario", description = "Operaciones relacionadas con Inventario")
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class InventoryController {
 
     private final InventoryService service;
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Crear un artículo del inventario", description = "Crea y guarda un artículo del inventario en el sistema")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -39,7 +39,7 @@ public class InventoryController {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Obtener todos los artículos", description = "Retorna una lista de todos los artículos registrados")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -51,7 +51,7 @@ public class InventoryController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Obtener un artículo del inventario por ID", description = "Retorna los detalles de un artículo del inventario específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -63,7 +63,7 @@ public class InventoryController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Obtener un artículo del inventario por ID", description = "Retorna los detalles de un artículo del inventario específico")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -75,7 +75,7 @@ public class InventoryController {
         return ResponseEntity.ok(service.getByCategory(category));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Actualizar un artículo del inventario", description = "Actualiza los datos de un artículo del inventario existente por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
@@ -88,7 +88,7 @@ public class InventoryController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @Operation(summary = "Realizar operación", description = "Endpoint para realizar operaciones en Inventory")
+    @Operation(summary = "Eliminar un artículo del inventario", description = "Elimina un artículo del inventario del sistema por ID")
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Operación exitosa"),
         @ApiResponse(responseCode = "400", description = "Petición inválida"),
