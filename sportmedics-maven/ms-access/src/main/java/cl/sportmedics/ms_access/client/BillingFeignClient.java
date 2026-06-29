@@ -9,6 +9,6 @@ import cl.sportmedics.ms_access.dto.BillingStatusDTO;
 public interface BillingFeignClient {
 
     // Ajusta la ruta a la que realmente expone ms-billing
-    @GetMapping("/api/billing/status/{memberId}")
+    @GetMapping("/api/billings/status/{memberId}")
     BillingStatusDTO getBillingStatus(@PathVariable("memberId") Long memberId);
 }

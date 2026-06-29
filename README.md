@@ -46,9 +46,9 @@ El sistema está construido sobre un ecosistema distribuido aplicando el patrón
 Para evitar errores de "Service Unavailable" o fallos de conexión entre instancias, el ecosistema debe inicializarse siguiendo estrictamente este orden:
 
 ### 1. Preparación de Base de Datos
-* Asegurarse de que el motor MySQL (vía XAMPP/Laragon) esté en ejecución.
-* Crear manualmente las **10 bases de datos** listadas en la tabla superior antes de iniciar los servicios. Cada microservicio debe tener su base de datos propia, sin compartir tablas.
-* *(Nota: Los servicios están configurados para conectarse al puerto `3307` por defecto, ajusta tu `application.properties` o `application.yml` al puerto `3306` si utilizas la configuración estándar de XAMPP).*
+* Asegurarse de que el motor MySQL (vía XAMPP/Laragon) esté en ejecución en el puerto por defecto **3306**.
+* Las **10 bases de datos** listadas en la tabla superior **se crearán automáticamente** al levantar cada microservicio gracias a la configuración de Hibernate en los archivos `application.yml`.
+* También puedes utilizar el script `docs/bd-general.sql` si prefieres iniciarlas manualmente.
 
 ### 2. Secuencia de Arranque
 1. **Ejecutar `service-registry`:** Iniciar este servicio primero. Verificar que el dashboard cargue correctamente en `http://localhost:8761`.
