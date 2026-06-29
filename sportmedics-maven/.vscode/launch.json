@@ -1,0 +1,124 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ServiceRegistryApplication<service-registry>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.service_registry.ServiceRegistryApplication",
+            "projectName": "service-registry",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsWorkoutApplication<ms-workout>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_workout.MsWorkoutApplication",
+            "projectName": "ms-workout",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsAccessApplication<ms-access>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_access.MsAccessApplication",
+            "projectName": "ms-access",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsAuthApplication<ms-auth>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_auth.MsAuthApplication",
+            "projectName": "ms-auth",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsBillingApplication<ms-billing>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_billing.MsBillingApplication",
+            "projectName": "ms-billing",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsEmployeeApplication<ms-employee>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_employee.MsEmployeeApplication",
+            "projectName": "ms-employee",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsInventoryApplication<ms-inventory>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_inventory.MsInventoryApplication",
+            "projectName": "ms-inventory",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsMemberApplication<ms-member>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_member.MsMemberApplication",
+            "projectName": "ms-member",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsNotificationApplication<ms-notification>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_notification.MsNotificationApplication",
+            "projectName": "ms-notification",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsSchedulingApplication<ms-scheduling>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_scheduling.MsSchedulingApplication",
+            "projectName": "ms-scheduling",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsSubscriptionApplication<ms-subscription>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.ms_subscription.MsSubscriptionApplication",
+            "projectName": "ms-subscription",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiGatewayApplication<api-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sportmedics.api_gateway.ApiGatewayApplication",
+            "projectName": "api-gateway",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
