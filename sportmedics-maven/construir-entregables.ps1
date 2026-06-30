@@ -44,7 +44,7 @@ MYSQL_ROOT_PASSWORD=root
 MYSQL_USER=sportmedics
 MYSQL_PASSWORD=sportmedics123
 "@
-Set-Content -Path "$DOCKER_DIR\.env" -Value $envContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\.env" -Value $envContent -Encoding Ascii
 
 # Generar docker-compose.yml
 $dockerComposeContent = @"
@@ -55,7 +55,7 @@ services:
     image: mysql:8.0
     container_name: sportmedics-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: `$${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: `${MYSQL_ROOT_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -83,6 +83,8 @@ services:
     container_name: api-gateway
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     volumes:
       - ./apps/api-gateway.jar:/app/api-gateway.jar
     command: java -jar /app/api-gateway.jar
@@ -129,7 +131,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: ms-billing
     ports:
-      - "8085:8085"
+      - "8087:8087"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
@@ -146,7 +148,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: ms-employee
     ports:
-      - "8087:8087"
+      - "8083:8083"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
@@ -180,7 +182,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: ms-member
     ports:
-      - "8081:8081"
+      - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
@@ -231,7 +233,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: ms-subscription
     ports:
-      - "8082:8082"
+      - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
@@ -248,7 +250,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: ms-workout
     ports:
-      - "8083:8083"
+      - "8085:8085"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
@@ -263,7 +265,7 @@ services:
 volumes:
   mysql_data:
 "@
-Set-Content -Path "$DOCKER_DIR\docker-compose.yml" -Value $dockerComposeContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\docker-compose.yml" -Value $dockerComposeContent -Encoding Ascii
 
 # Generar arrancar-sistema.bat
 $arrancarSistemaContent = @"
@@ -274,7 +276,7 @@ echo.
 echo Puedes verificar los servicios con: docker compose ps
 pause
 "@
-Set-Content -Path "$DOCKER_DIR\arrancar-sistema.bat" -Value $arrancarSistemaContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\arrancar-sistema.bat" -Value $arrancarSistemaContent -Encoding Ascii
 
 # Generar detener-sistema.bat
 $detenerSistemaContent = @"
@@ -285,7 +287,7 @@ echo.
 echo Contenedores detenidos. Los datos siguen seguros en el volumen.
 pause
 "@
-Set-Content -Path "$DOCKER_DIR\detener-sistema.bat" -Value $detenerSistemaContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\detener-sistema.bat" -Value $detenerSistemaContent -Encoding Ascii
 
 # Generar ver-logs.bat
 $verLogsContent = @"
@@ -293,7 +295,7 @@ $verLogsContent = @"
 echo Mostrando logs (Ctrl+C para salir)...
 docker compose logs -f
 "@
-Set-Content -Path "$DOCKER_DIR\ver-logs.bat" -Value $verLogsContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\ver-logs.bat" -Value $verLogsContent -Encoding Ascii
 
 # Generar backup-db.bat
 $backupDbContent = @"
@@ -317,7 +319,7 @@ echo.
 echo RESPALDO FINALIZADO.
 pause
 "@
-Set-Content -Path "$DOCKER_DIR\backup-db.bat" -Value $backupDbContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\backup-db.bat" -Value $backupDbContent -Encoding Ascii
 
 # Generar restaurar-db.bat
 $restaurarDbContent = @"
@@ -339,7 +341,7 @@ echo.
 echo RESTAURACION FINALIZADA.
 pause
 "@
-Set-Content -Path "$DOCKER_DIR\restaurar-db.bat" -Value $restaurarDbContent -Encoding UTF8
+Set-Content -Path "$DOCKER_DIR\restaurar-db.bat" -Value $restaurarDbContent -Encoding Ascii
 
 Write-Host ""
 Write-Host "[5/5] Generando script Nativo..."
@@ -388,11 +390,11 @@ echo API Gateway: http://localhost:8080
 echo.
 pause
 "@
-Set-Content -Path "$NATIVO_DIR\arrancar-nativo.bat" -Value $arrancarNativoContent -Encoding UTF8
+Set-Content -Path "$NATIVO_DIR\arrancar-nativo.bat" -Value $arrancarNativoContent -Encoding Ascii
 
 Write-Host ""
 Write-Host "=========================================================="
-Write-Host "¡ENTREGABLES GENERADOS EXITOSAMENTE!" -ForegroundColor Green
+Write-Host "??ENTREGABLES GENERADOS EXITOSAMENTE!" -ForegroundColor Green
 Write-Host "=========================================================="
 Write-Host "Comprime las carpetas $DOCKER_DIR y $NATIVO_DIR para subir a Drive."
 Write-Host ""
