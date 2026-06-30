@@ -1,0 +1,107 @@
+Guión Oficial: Defensa Técnica SportMedics
+
+Duración total: 15 minutos exactos
+Enfoque principal: Migración a Maven Multi-Módulo, Swagger, Unit Tests y Docker.
+Formato: 3 personas (5 minutos por integrante).
+
+Introducción y Control de Versiones
+
+(Pantalla: Mostrar el archivo .gitignore)
+
+Hola a todos. Somos el equipo conformado por Daniel Aedo, Angelo Ponce y quien les habla, Patricio Céspedes. En esta presentación expondremos la arquitectura final y el despliegue a producción de nuestro ecosistema de microservicios desarrollado para la Evaluación Parcial 3.
+Comenzaremos con el control de versiones. Para mantener un repositorio limpio y profesional, aplicamos la llamada Regla de Oro mediante un archivo .gitignore cuidadosamente configurado.
+En una arquitectura basada en múltiples microservicios es fundamental evitar versionar archivos generados automáticamente. Por ello excluimos los archivos compilados .jar, las carpetas target/ generadas durante la compilación, los archivos propios del IDE y también los volúmenes locales utilizados por Docker, como mysql_data.
+Con esto logramos un repositorio mucho más liviano, historiales de cambios más claros y, además, garantizamos que cualquier persona que clone el proyecto deba compilarlo directamente desde el código fuente, asegurando la reproducibilidad del entorno.
+
+Migración a Maven Multi-Módulo
+
+(Pantalla: Mostrar la estructura del proyecto, abrir el pom.xml padre y luego un pom.xml hijo)
+
+El siguiente desafío importante fue migrar toda la solución a una arquitectura Maven Multi-Módulo.
+En las primeras versiones del proyecto administrábamos cada microservicio como un proyecto Maven independiente. A medida que la aplicación creció, este enfoque comenzó a generar problemas de mantenimiento. Por ejemplo, actualizar la versión de Spring Boot o de cualquier dependencia obligaba a modificar múltiples archivos pom.xml, aumentando considerablemente el riesgo de inconsistencias.
+Para resolverlo implementamos un pom.xml padre, que actúa como punto central de configuración del proyecto.
+
+Dentro de este archivo utilizamos la sección <dependencyManagement> para definir de manera centralizada las versiones de Spring Boot, Spring Cloud, los drivers de bases de datos y las principales dependencias compartidas.
+A partir de allí, los diez microservicios, el API Gateway y el servidor Eureka pasan a formar parte del proyecto como módulos hijos mediante la etiqueta <modules>.
+La principal ventaja es que cada módulo hereda automáticamente toda la configuración común, evitando duplicación de código y simplificando enormemente el mantenimiento del proyecto.
+Además, ahora podemos compilar, limpiar y empaquetar todo el ecosistema ejecutando un único comando desde la raíz del proyecto:
+mvn clean install
+
+Esto permite construir toda la plataforma de forma consistente y asegura que todos los módulos utilicen exactamente las mismas versiones de sus dependencias.
+Con esta base arquitectónica consolidada, le doy el paso a Daniel, quien explicará cómo aseguramos la calidad del software mediante documentación automática y pruebas unitarias.
+
+
+PERSONA 2: Calidad Técnica (Swagger y Pruebas Unitarias) (05:00 - 10:00)
+05:00 - 07:30 | Documentación y Consumo con Swagger/OpenAPI
+
+Persona 2:
+Tener diez microservicios independientes exige una excelente documentación.
+Por ello integramos la especificación OpenAPI 3 mediante Swagger.
+(Mostrar la página /doc/swagger-ui.html en el navegador).
+Cada uno de nuestros microservicios expone automáticamente su documentación interactiva.
+Nuestros controladores fueron anotados utilizando @Operation para describir la lógica de negocio y @ApiResponse para estandarizar los códigos HTTP.
+Esto permite que cualquier desarrollador Frontend o integrante de QA conozca exactamente qué DTO debe enviar y qué respuesta JSON recibirá.
+Además, Swagger permite probar directamente los endpoints desde esta misma interfaz gráfica, sin necesidad de utilizar herramientas externas.
+
+07:30 - 10:00 | Aseguramiento de Calidad: Unit Tests con JUnit 5 y Mockito
+Persona 2: (Abriendo una clase de pruebas en IntelliJ o Eclipse).
+La segunda gran mejora técnica corresponde a nuestras pruebas unitarias.
+Para asegurar que ningún cambio rompa las reglas de negocio, incorporamos JUnit 5 junto con Mockito.
+
+Nuestras pruebas siguen la metodología Given – When – Then.
+Given: Configuramos un escenario controlado utilizando @Mock, simulando la base de datos para probar únicamente la lógica del servicio.
+When: Ejecutamos el método que deseamos validar.
+Then: Verificamos el comportamiento esperado mediante aserciones (asserts) precisas.
+Al ejecutar estas pruebas antes del empaquetado con Maven, garantizamos que la lógica del dominio funcione correctamente y que los cambios futuros no introduzcan errores.
+
+PERSONA 3: Estrategia de Despliegue (Docker) y Cierre (10:00 - 15:00)
+10:00 - 13:00 | Contenedorización e Infraestructura como Código (Docker Compose)
+
+Persona 3:
+Una vez que nuestro sistema multi-módulo fue probado y documentado, abordamos el reto final: el despliegue estandarizado.
+Implementamos una solución profesional utilizando Docker.
+(Mostrar el archivo docker-compose.yml en el IDE).
+
+Este archivo orquesta el ciclo de vida completo de SportMedics.
+
+1. MySQL Compartido y Volúmenes
+En lugar de instalar bases de datos manualmente, levantamos un contenedor de MySQL.
+Utilizamos la propiedad volumes, específicamente mysql_data, para asegurar la persistencia de la información, incluso si los contenedores son detenidos o reiniciados.
+2. Healthchecks y Dependencias
+Implementamos comprobaciones de salud mediante healthcheck.
+Nuestros microservicios utilizan depends_on, lo que obliga a esperar hasta que la base de datos esté completamente operativa antes de intentar conectarse.
+Con ello evitamos errores de inicialización en cascada.
+3. Aislamiento de Perfiles
+Creamos archivos application-docker.yml que contienen la configuración específica para los contenedores.
+De esta forma mantenemos separadas las configuraciones de producción y desarrollo, evitando afectar el entorno local.
+
+13:00 - 14:30 | Ejecución "Llave en Mano" y Control de Versiones
+Persona 3: (Mostrando los scripts .bat y la estructura del proyecto).
+Para facilitar la evaluación del proyecto, desarrollamos automatizaciones de tipo "llave en mano".
+Mediante el script arrancar-sistema.bat, cualquier evaluador puede iniciar todo el sistema sin necesidad de ejecutar múltiples comandos manualmente.
+También entregamos una versión nativa mediante arrancar-nativo.bat, respetando el orden de inicio requerido por la rúbrica.
+Todo esto está respaldado por buenas prácticas de control de versiones.
+Nuestro archivo .gitignore excluye directorios como target/, archivos ejecutables y otros elementos generados automáticamente, manteniendo el repositorio limpio y compuesto únicamente por el código fuente.
+
+14:30 - 15:00 | Conclusión y Cierre
+Persona 3:
+En conclusión, mediante la migración a Maven Multi-Módulo optimizamos el proceso de compilación y administración del proyecto.
+Con Swagger, JUnit 5 y Mockito fortalecimos la documentación y aseguramos la calidad del código.
+Finalmente, gracias a Docker logramos un despliegue reproducible, automatizado y resiliente.
+Somos el equipo SportMedics y esta ha sido nuestra defensa técnica.
+Muchas gracias por su atención.
+
+Nota final
+Recuerden exportar este mismo documento como subtitulos-video.txt e incluirlo en la carpeta raíz del repositorio al finalizar la grabación.
+
+Cierre
+(Pantalla: Swagger del API Gateway o diagrama general de la arquitectura)
+Para finalizar, podemos decir que SportMedics evolucionó desde un conjunto de APIs independientes hacia un ecosistema de microservicios mucho más organizado, mantenible y preparado para escalar.
+Durante este proceso implementamos cuatro pilares fundamentales:
+Centralización del proyecto mediante Maven Multi-Módulo.
+Documentación y contratos claros utilizando OpenAPI y Swagger.
+Validación del comportamiento mediante pruebas unitarias con Mockito.
+Y un despliegue portable e independiente del sistema operativo gracias a Docker, Docker Compose y el servidor Eureka para el descubrimiento de servicios.
+Como resultado, obtuvimos una plataforma moderna, modular y preparada para integrarse fácilmente en entornos Cloud y arquitecturas distribuidas.
+Muchas gracias por su tiempo y atención. Estamos disponibles para responder sus preguntas.
+
